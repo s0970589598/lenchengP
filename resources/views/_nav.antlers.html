@@ -1,0 +1,22 @@
+<nav class="py-12 max-w-4xl mx-auto">
+  <div class="flex items-center justify-between">
+    <a class="font-bold text-2xl" href="/">screencasticle</a>
+    <ul class="flex items-center space-x-8 font-semibold">
+      {{ nav :from="segment_1" }}
+         <li>
+            <a href="{{ url }}"{{ if is_current || is_parent }} class="py-4 block on"{{ /if }}>{{ title }}</a>
+            {{ if is_current || is_parent }}
+               {{ if children }}
+                  <ul>{{ *recursive children* }}</ul>
+               {{ /if }}
+            {{ /if }}
+         </li>
+      {{ /nav }}
+   </ul>
+  </div>
+  <ul class="bg-black text-white px-4 flex items-center space-x-8">
+    <li><a href="/login" class="py-2 block">Login</a></li>
+    <li><a href="/signup" class="py-2 block">Signup</a></li>
+    <li><a href="/logout" class="py-2 block">Logout</a></li>
+  </ul>
+  </nav>

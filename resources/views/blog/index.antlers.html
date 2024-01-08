@@ -1,0 +1,11 @@
+<h1 class="text-2xl font-bold my-6">{{ title }}</h1>
+{{ content }}
+
+<section class="border border-green-400 mt-12">
+{{ collection:blog }}
+    <a href="{{ url }}" class="flex items-center justify-between p-5 border-t border-green-400 text-green-400 hover:text-green-900 hover:bg-green-400">
+        <span>{{ title }}</span>
+        <span class="text-green-900 text-sm">{{ date }}</span>
+    </a>
+{{ /collection:blog }}
+</section>

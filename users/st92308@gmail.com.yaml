@@ -1,0 +1,8 @@
+name: s26806871
+super: true
+id: b71722ea-906f-464e-9af7-2d106ef3dabb
+password_hash: $2y$10$jM8orFFlvhnfabhom5KpvuAwj14OEksMDscpQE3JyvgHfYZ2h1Mh2
+preferences:
+  collections:
+    articles:
+      after_save: continue_editing
