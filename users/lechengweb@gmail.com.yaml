@@ -2,3 +2,26 @@ name: lecheng
 super: true
 id: 6850a5fa-c40e-45b0-91ee-3433dbd5bb03
 password_hash: $2y$10$xEl.yPmb6D8.FuWMCOiWO.Yw6ALwap9NHmEX5idtejjfct4kF8Mm2
+preferences:
+  collections:
+    news:
+      columns:
+        - title
+        - slug
+        - status
+        - news_tag
+        - sel_type
+        - bard_field
+        - short_context
+        - url_field
+        - feature_pic
+        - active_date
+      after_save: continue_editing
+      per_page: 10
+    articles:
+      columns:
+        - title
+        - slug
+        - date
+        - status
+        - bard_field

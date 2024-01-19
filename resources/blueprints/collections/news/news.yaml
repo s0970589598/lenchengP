@@ -1,10 +1,29 @@
-title: Article
 tabs:
   main:
     display: Main
     sections:
       -
         fields:
+          -
+            handle: sel_type
+            field:
+              options:
+                lecture: 講座
+                activity: 活動
+              taggable: true
+              push_tags: true
+              multiple: false
+              clearable: false
+              searchable: true
+              cast_booleans: false
+              type: select
+              display: sel_type
+              icon: select
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
           -
             handle: title
             field:
@@ -31,6 +50,18 @@ tabs:
               replicator_preview: true
               hide_display: false
           -
+            handle: short_context
+            field:
+              antlers: false
+              type: textarea
+              display: 'short context'
+              icon: textarea
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+          -
             handle: bard_field
             field:
               buttons:
@@ -45,18 +76,6 @@ tabs:
                 - anchor
                 - image
                 - table
-                - h1
-                - h4
-                - h5
-                - h6
-                - underline
-                - strikethrough
-                - small
-                - horizontalrule
-                - alignleft
-                - aligncenter
-                - alignright
-                - alignjustify
               smart_typography: false
               save_html: false
               inline: false
@@ -77,7 +96,7 @@ tabs:
               collapse: false
               previews: true
               type: bard
-              display: 'Bard Field'
+              display: 'bard field'
               icon: bard
               listable: hidden
               instructions_position: above
@@ -85,11 +104,11 @@ tabs:
               replicator_preview: true
               hide_display: false
           -
-            handle: taggable_field
+            handle: news_tag
             field:
               placeholder: 'Type and press ↩ Enter'
               type: taggable
-              display: 'Taggable Field'
+              display: 'news tag'
               icon: tags
               listable: hidden
               instructions_position: above
@@ -97,12 +116,12 @@ tabs:
               replicator_preview: true
               hide_display: false
           -
-            handle: fb_url
+            handle: url_field
             field:
               input_type: text
               antlers: false
               type: text
-              display: fb
+              display: 'url field'
               icon: text
               listable: hidden
               instructions_position: above
@@ -110,64 +129,13 @@ tabs:
               replicator_preview: true
               hide_display: false
           -
-            handle: ig_url
+            handle: active_date
             field:
-              input_type: text
+              input_type: date
               antlers: false
               type: text
-              display: ig
+              display: 'active date'
               icon: text
-              listable: hidden
-              instructions_position: above
-              visibility: visible
-              replicator_preview: true
-              hide_display: false
-          -
-            handle: author
-            field:
-              options:
-                Howard: Howard
-                Mao: Mao
-              taggable: false
-              push_tags: false
-              multiple: false
-              clearable: false
-              searchable: true
-              cast_booleans: false
-              type: select
-              display: Author
-              icon: select
-              listable: hidden
-              instructions_position: above
-              visibility: visible
-              replicator_preview: true
-              hide_display: false
-      -
-        display: meta
-        instructions: meta
-        fields:
-          -
-            handle: meta_title
-            field:
-              input_type: text
-              character_limit: 60
-              antlers: false
-              type: text
-              display: 'meta title'
-              icon: text
-              listable: hidden
-              instructions_position: above
-              visibility: visible
-              replicator_preview: true
-              hide_display: false
-          -
-            handle: meta_rescription
-            field:
-              character_limit: '160'
-              antlers: false
-              type: textarea
-              display: 'meta rescription'
-              icon: textarea
               listable: hidden
               instructions_position: above
               visibility: visible
@@ -184,11 +152,4 @@ tabs:
               type: slug
               localizable: true
               validate: 'max:200'
-          -
-            handle: date
-            field:
-              type: date
-              required: true
-              default: now
-              validate:
-                - required
+title: News
