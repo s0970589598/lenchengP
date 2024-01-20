@@ -78,7 +78,7 @@ class MarkdownController extends Controller
                     'bard_field_fir' => isset($markdownArray['bard_field'][0]) ? [$markdownArray['bard_field'][0]] : [],
                     'bard_field_sec' => isset($markdownArray['bard_field'][1]) ? [$markdownArray['bard_field'][1]] : [],
                     'taggable_field' => isset($markdownArray['taggable_field']) ? [$markdownArray['taggable_field']] : [],
-                    'day_of_week' => isset($markdownArray['day_of_week']) ? [$markdownArray['day_of_week']] : [],
+                    'class_week_date' => isset($markdownArray['class_week_date']) ? [$markdownArray['class_week_date']] : [],
                     'teacher' => isset($markdownArray['teacher']) ? [$markdownArray['teacher']] : [],
                 ];
                 break;

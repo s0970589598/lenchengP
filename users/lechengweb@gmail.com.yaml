@@ -31,4 +31,4 @@ preferences:
         - slug
         - status
         - source_type
-        - day_of_week
+        - class_week_date

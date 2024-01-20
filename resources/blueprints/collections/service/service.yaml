@@ -64,32 +64,6 @@ tabs:
               replicator_preview: true
               hide_display: false
           -
-            handle: day_of_week
-            field:
-              options:
-                sun: 星期日
-                mon: 星期一
-                tue: 星期二
-                wed: 星期三
-                thu: 星期四
-                fri: 星期五
-                sat: 星期六
-                any: 不定期
-              taggable: true
-              push_tags: true
-              multiple: false
-              clearable: false
-              searchable: true
-              cast_booleans: false
-              type: select
-              display: 上課時間
-              icon: select
-              listable: hidden
-              instructions_position: above
-              visibility: visible
-              replicator_preview: true
-              hide_display: false
-          -
             handle: feature_pic
             field:
               mode: list
@@ -186,6 +160,27 @@ tabs:
               type: taggable
               display: 標籤
               icon: tags
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+          -
+            handle: class_week_date
+            field:
+              options:
+                sun: 星期日
+                mon: 星期一
+                tue: 星期二
+                wed: 星期三
+                thu: 星期四
+                fri: 星期五
+                sat: 星期六
+                any: 預約制
+              inline: false
+              type: checkboxes
+              display: 上課時間
+              icon: checkboxes
               listable: hidden
               instructions_position: above
               visibility: visible
