@@ -12,6 +12,14 @@ tabs:
               required: true
               validate:
                 - required
+              display: 標題
+              instructions_position: above
+              listable: hidden
+              visibility: visible
+              replicator_preview: true
+              input_type: text
+              antlers: false
+              hide_display: false
           -
             handle: feature_pic
             field:
@@ -23,7 +31,7 @@ tabs:
               show_filename: true
               show_set_alt: true
               type: assets
-              display: 'feature pic'
+              display: 圖片
               icon: assets
               listable: hidden
               instructions_position: above
@@ -77,7 +85,7 @@ tabs:
               collapse: false
               previews: true
               type: bard
-              display: 'Bard Field'
+              display: 內文
               icon: bard
               listable: hidden
               instructions_position: above
@@ -89,7 +97,7 @@ tabs:
             field:
               placeholder: 'Type and press ↩ Enter'
               type: taggable
-              display: 'Taggable Field'
+              display: 標籤
               icon: tags
               listable: hidden
               instructions_position: above
@@ -102,7 +110,7 @@ tabs:
               input_type: text
               antlers: false
               type: text
-              display: fb
+              display: fb連結
               icon: text
               listable: hidden
               instructions_position: above
@@ -115,7 +123,7 @@ tabs:
               input_type: text
               antlers: false
               type: text
-              display: ig
+              display: ig連結
               icon: text
               listable: hidden
               instructions_position: above
@@ -128,6 +136,7 @@ tabs:
               options:
                 Howard: Howard
                 Mao: Mao
+                lecheng: 樂橙團隊
               taggable: false
               push_tags: false
               multiple: false
@@ -135,7 +144,7 @@ tabs:
               searchable: true
               cast_booleans: false
               type: select
-              display: Author
+              display: 作者
               icon: select
               listable: hidden
               instructions_position: above

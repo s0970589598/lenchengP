@@ -25,3 +25,10 @@ preferences:
         - date
         - status
         - bard_field
+    service:
+      columns:
+        - title
+        - slug
+        - status
+        - source_type
+        - day_of_week

@@ -11,8 +11,40 @@ tabs:
               required: true
               validate:
                 - required
+              display: 標題
+              instructions_position: above
+              listable: hidden
+              visibility: visible
+              replicator_preview: true
+              input_type: text
+              antlers: false
+              hide_display: false
           -
             handle: service_type
+            field:
+              options:
+                redline: 紅繩訓練
+                strength: 肌力訓練
+                massage: 運動按摩
+                reconstructio: 骨科術後功能重建
+                correction: 姿勢矯正
+                lecture: 企業健康講座
+              taggable: false
+              push_tags: false
+              multiple: false
+              clearable: false
+              searchable: true
+              cast_booleans: false
+              type: select
+              display: 服務類別
+              icon: select
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+          -
+            handle: source_type
             field:
               options:
                 groupclass: 團課
@@ -24,7 +56,7 @@ tabs:
               searchable: true
               cast_booleans: false
               type: select
-              display: 'service type'
+              display: 上課方式
               icon: select
               listable: hidden
               instructions_position: above
@@ -50,7 +82,7 @@ tabs:
               searchable: true
               cast_booleans: false
               type: select
-              display: 'day of week'
+              display: 上課時間
               icon: select
               listable: hidden
               instructions_position: above
@@ -58,11 +90,28 @@ tabs:
               replicator_preview: true
               hide_display: false
           -
-            handle: subject
+            handle: feature_pic
+            field:
+              mode: list
+              container: assets
+              restrict: false
+              allow_uploads: true
+              show_filename: true
+              show_set_alt: true
+              type: assets
+              display: 圖片
+              icon: assets
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+          -
+            handle: essay
             field:
               antlers: false
               type: textarea
-              display: subject
+              display: 短文說明
               icon: textarea
               listable: hidden
               instructions_position: above
@@ -103,7 +152,7 @@ tabs:
               collapse: false
               previews: true
               type: bard
-              display: 'Bard Field'
+              display: 內文
               icon: bard
               listable: hidden
               instructions_position: above
@@ -123,7 +172,7 @@ tabs:
               searchable: true
               cast_booleans: false
               type: select
-              display: teacher
+              display: 老師
               icon: select
               listable: hidden
               instructions_position: above
@@ -131,11 +180,11 @@ tabs:
               replicator_preview: true
               hide_display: false
           -
-            handle: service_tag
+            handle: taggable_field
             field:
               placeholder: 'Type and press ↩ Enter'
               type: taggable
-              display: 'service tag'
+              display: 標籤
               icon: tags
               listable: hidden
               instructions_position: above
@@ -153,4 +202,12 @@ tabs:
               type: slug
               localizable: true
               validate: 'max:200'
+              instructions_position: above
+              listable: true
+              visibility: visible
+              replicator_preview: true
+              from: title
+              generate: true
+              show_regenerate: false
+              hide_display: false
 title: Service

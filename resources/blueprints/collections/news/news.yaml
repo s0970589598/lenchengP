@@ -5,11 +5,12 @@ tabs:
       -
         fields:
           -
-            handle: sel_type
+            handle: source_type
             field:
               options:
                 lecture: 講座
                 activity: 活動
+                news: 公告
               taggable: true
               push_tags: true
               multiple: false
@@ -17,7 +18,7 @@ tabs:
               searchable: true
               cast_booleans: false
               type: select
-              display: sel_type
+              display: 類別
               icon: select
               listable: hidden
               instructions_position: above
@@ -31,6 +32,14 @@ tabs:
               required: true
               validate:
                 - required
+              display: 標題
+              instructions_position: above
+              listable: hidden
+              visibility: visible
+              replicator_preview: true
+              input_type: text
+              antlers: false
+              hide_display: false
           -
             handle: feature_pic
             field:
@@ -42,7 +51,7 @@ tabs:
               show_filename: true
               show_set_alt: true
               type: assets
-              display: 'feature pic'
+              display: 圖片
               icon: assets
               listable: hidden
               instructions_position: above
@@ -50,11 +59,11 @@ tabs:
               replicator_preview: true
               hide_display: false
           -
-            handle: short_context
+            handle: essay
             field:
               antlers: false
               type: textarea
-              display: 'short context'
+              display: 短文說明
               icon: textarea
               listable: hidden
               instructions_position: above
@@ -96,7 +105,7 @@ tabs:
               collapse: false
               previews: true
               type: bard
-              display: 'bard field'
+              display: 內文
               icon: bard
               listable: hidden
               instructions_position: above
@@ -104,11 +113,11 @@ tabs:
               replicator_preview: true
               hide_display: false
           -
-            handle: news_tag
+            handle: taggable_field
             field:
               placeholder: 'Type and press ↩ Enter'
               type: taggable
-              display: 'news tag'
+              display: 標籤
               icon: tags
               listable: hidden
               instructions_position: above
@@ -121,7 +130,7 @@ tabs:
               input_type: text
               antlers: false
               type: text
-              display: 'url field'
+              display: 連結
               icon: text
               listable: hidden
               instructions_position: above
@@ -129,12 +138,25 @@ tabs:
               replicator_preview: true
               hide_display: false
           -
-            handle: active_date
+            handle: start_date
             field:
               input_type: date
               antlers: false
               type: text
-              display: 'active date'
+              display: 開始時間
+              icon: text
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+          -
+            handle: enddate
+            field:
+              input_type: date
+              antlers: false
+              type: text
+              display: 結束時間
               icon: text
               listable: hidden
               instructions_position: above

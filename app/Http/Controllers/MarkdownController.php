@@ -7,12 +7,12 @@ use File;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Symfony\Component\Yaml\Yaml;
-
+use Illuminate\Support\Facades\Log;
 class MarkdownController extends Controller
 {
-    public function convert($file)
+    public function convert($source,$file)
     {
-        $mdFilePath = '/var/www/html/content/collections/articles/' . $file;
+        $mdFilePath = '/var/www/html/content/collections/' . $source . '/' . $file;
 
         if (!file_exists($mdFilePath)) {
             abort(404);
@@ -21,40 +21,81 @@ class MarkdownController extends Controller
         $mdContent = File::get($mdFilePath);
 
           // 解析 Markdown 資料
-          $parsedData = $this->parseMarkdown($mdContent, "detail");
+          $parsedData = $this->parseMarkdown($mdContent, "detail", $source);
 
           // 回傳 JSON 格式的資料
           return response()->json(['data' => $parsedData]);
 
     }
 
-    private function parseMarkdown($markdownContent, $type="list")
+    private function parseMarkdown($markdownContent, $type="list", $source)
     {
         $parsedown = new Parsedown();
             // 分離 YAML 和 Markdown 部分
 
         list($yamlData, $markdownText) = explode('---', $markdownContent, 3);
-
+        Log::info($markdownText);
         $markdownArray = Yaml::parse($markdownText);
-        if ($type == "list") {
-            return $selectedData = [
-                'id' => $markdownArray['id'] ?? null,
-                'title' => $markdownArray['title'] ?? null,
-                'author' => $markdownArray['author'] ?? null,
-                'feature_pic' => $markdownArray['feature_pic'] ?? null,
-                'bard_field_fir' => isset($markdownArray['bard_field'][0]) ? [$markdownArray['bard_field'][0]] : [],
-                'bard_field_sec' => isset($markdownArray['bard_field'][1]) ? [$markdownArray['bard_field'][1]] : [],
-                'taggable_field' => isset($markdownArray['taggable_field']) ? [$markdownArray['taggable_field']] : [],
-            ];
-        } else {
-            // 選擇需要的屬性
+        if ($type != "list") {
             return $markdownArray;
         }
+        switch ($source) {
+            case 'articles':
+          $selectedData = [
+                    'id' => $markdownArray['id'] ?? null,
+                    'title' => $markdownArray['title'] ?? null,
+                    'author' => $markdownArray['author'] ?? null,
+                    'feature_pic' => $markdownArray['feature_pic'] ?? null,
+                    'bard_field_fir' => isset($markdownArray['bard_field'][0]) ? [$markdownArray['bard_field'][0]] : [],
+                    'bard_field_sec' => isset($markdownArray['bard_field'][1]) ? [$markdownArray['bard_field'][1]] : [],
+                    'taggable_field' => isset($markdownArray['taggable_field']) ? [$markdownArray['taggable_field']] : [],
+                ];
+
+                break;
+            case 'news':
+                $selectedData = [
+                    'id' => $markdownArray['id'] ?? null,
+                    'source_type' => $markdownArray['source_type'] ?? null,
+                    'essay' => $markdownArray['essay'] ?? null,
+                    'title' => $markdownArray['title'] ?? null,
+                    'feature_pic' => $markdownArray['feature_pic'] ?? null,
+                    'bard_field_fir' => isset($markdownArray['bard_field'][0]) ? [$markdownArray['bard_field'][0]] : [],
+                    'bard_field_sec' => isset($markdownArray['bard_field'][1]) ? [$markdownArray['bard_field'][1]] : [],
+                    'taggable_field' => isset($markdownArray['taggable_field']) ? [$markdownArray['taggable_field']] : [],
+                    'start_date' => isset($markdownArray['start_date']) ? [$markdownArray['start_date']] : [],
+                    'end_date' => isset($markdownArray['end_date']) ? [$markdownArray['end_date']] : [],
+                    'url_field' => isset($markdownArray['url_field']) ? [$markdownArray['url_field']] : [],
+                ];
+                break;
+            case 'service':
+                $selectedData = [
+                    'id' => $markdownArray['id'] ?? null,
+                    'service_type' => $markdownArray['service_type'] ?? null,
+                    'source_type' => $markdownArray['source_type'] ?? null,
+                    'essay' => $markdownArray['essay'] ?? null,
+                    'title' => $markdownArray['title'] ?? null,
+                    'feature_pic' => $markdownArray['feature_pic'] ?? null,
+                    'bard_field_fir' => isset($markdownArray['bard_field'][0]) ? [$markdownArray['bard_field'][0]] : [],
+                    'bard_field_sec' => isset($markdownArray['bard_field'][1]) ? [$markdownArray['bard_field'][1]] : [],
+                    'taggable_field' => isset($markdownArray['taggable_field']) ? [$markdownArray['taggable_field']] : [],
+                    'day_of_week' => isset($markdownArray['day_of_week']) ? [$markdownArray['day_of_week']] : [],
+                    'teacher' => isset($markdownArray['teacher']) ? [$markdownArray['teacher']] : [],
+                ];
+                break;
+            default:
+                return [];
+
+        }
+        return $selectedData;
     }
 
-    public function getMarkdownFilesInDirectory($directory = '/var/www/html/content/collections/articles/', $sortBy = 'name', $page = 1, $perPage = 10)
+    public function getMarkdownFilesInDirectory($file)
     {
         $markdownFiles = [];
+        $directory = '/var/www/html/content/collections/' . $file . '/';
+        $sortBy = 'name';
+        $page = 1;
+        $perPage = 10;
 
         // 檢查目錄是否存在
         if (File::exists($directory)) {
@@ -116,10 +157,17 @@ class MarkdownController extends Controller
         return $files;
     }
 
-    public function getArticleList(Request $request,$directory = '/var/www/html/content/collections/articles/', $sortBy = 'name', $page = 1, $perPage = 9){
+    public function getArticleList(Request $request, $source){
         $markdownFiles = [];
         $parsedData = [];
+        $directory = '/var/www/html/content/collections/articles/';
+        $sortBy = 'name';
+        $page = 1;
+        $perPage = 9;
+
         $page = $request->input('page', 1); // 獲取 page 參數，默認值為 1
+        // $type = $request->type;
+        $directory = '/var/www/html/content/collections/'. $source .'/';
         // 檢查目錄是否存在
         if (File::exists($directory)) {
             // 取得目錄內的所有檔案
@@ -146,7 +194,7 @@ class MarkdownController extends Controller
                     // 取得檔案的檔名
                     $fileName = $file->getFilenameWithoutExtension();
                     $markdownFiles[] = $fileName;
-                    $mdFilePath = '/var/www/html/content/collections/articles/' . $fileName . '.md';
+                    $mdFilePath = '/var/www/html/content/collections/'. $source .'/' . $fileName . '.md';
                     if (!file_exists($mdFilePath)) {
                         abort(404);
                     }
@@ -154,7 +202,7 @@ class MarkdownController extends Controller
                     $mdContent = File::get($mdFilePath);
 
                     // 解析 Markdown 資料
-                    $parsedData[] = $this->parseMarkdown($mdContent);
+                    $parsedData[] = $this->parseMarkdown($mdContent,'list', $source);
 
 
                 }
