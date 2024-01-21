@@ -163,7 +163,7 @@ class MarkdownController extends Controller
         $directory = '/var/www/html/content/collections/articles/';
         $sortBy = 'name';
         $page = 1;
-        $perPage = 9;
+        $perPage = 6;
 
         $page = $request->input('page', 1); // 獲取 page 參數，默認值為 1
         // $type = $request->type;
