@@ -49,6 +49,7 @@ tabs:
               options:
                 groupclass: 團課
                 onebyone: 一對一
+                lecture: 講座
               taggable: false
               push_tags: false
               multiple: false
@@ -139,6 +140,7 @@ tabs:
               options:
                 Howard: Howard
                 Mao: Mao
+                Lecheng: 樂橙團隊
               taggable: true
               push_tags: true
               multiple: false

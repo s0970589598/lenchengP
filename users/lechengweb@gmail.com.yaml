@@ -1,34 +1,16 @@
-name: lecheng
+name: lechengweb
 super: true
-id: 6850a5fa-c40e-45b0-91ee-3433dbd5bb03
+id: 6d4fcc3a-c199-468c-a4b0-5658e331d738
 password_hash: $2y$10$NX4r8nPDfjE0f7WqJ28/eetMIVvuwYoOxyE0R1ru/zP7SrpqdSg0S
 preferences:
   collections:
-    news:
-      columns:
-        - title
-        - slug
-        - status
-        - news_tag
-        - sel_type
-        - bard_field
-        - short_context
-        - url_field
-        - feature_pic
-        - active_date
-      after_save: continue_editing
-      per_page: 10
-    articles:
-      columns:
-        - title
-        - slug
-        - date
-        - status
-        - bard_field
     service:
       columns:
-        - title
         - slug
         - status
+        - title
+        - taggable_field
+        - teacher
+        - service_type
+        - essay
         - source_type
-        - class_week_date
