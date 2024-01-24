@@ -14,3 +14,8 @@ preferences:
         - service_type
         - essay
         - source_type
+    news:
+      columns:
+        - title
+        - essay
+        - source_type

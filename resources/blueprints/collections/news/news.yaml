@@ -174,4 +174,13 @@ tabs:
               type: slug
               localizable: true
               validate: 'max:200'
+              display: 檔案名(日期-第幾篇-分類(activity、news、lecture)-其他)
+              instructions_position: above
+              listable: hidden
+              visibility: visible
+              replicator_preview: true
+              from: title
+              generate: true
+              show_regenerate: false
+              hide_display: false
 title: News

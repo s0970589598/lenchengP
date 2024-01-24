@@ -49,6 +49,7 @@ class MarkdownController extends Controller
                     'bard_field_fir' => isset($markdownArray['bard_field'][0]) ? [$markdownArray['bard_field'][0]] : [],
                     'bard_field_sec' => isset($markdownArray['bard_field'][1]) ? [$markdownArray['bard_field'][1]] : [],
                     'taggable_field' => isset($markdownArray['taggable_field']) ? [$markdownArray['taggable_field']] : [],
+
                 ];
 
                 break;
@@ -96,11 +97,13 @@ class MarkdownController extends Controller
         $sortBy = 'name';
         $page = 1;
         $perPage = 10;
-
+        $sourceTypeParam = 'groupclass';
         // 檢查目錄是否存在
         if (File::exists($directory)) {
             // 取得目錄內的所有檔案
             $files = File::files($directory);
+
+
 
             // 排序
             $sortedFiles = $this->sortFiles($files, $sortBy);
@@ -160,21 +163,35 @@ class MarkdownController extends Controller
     public function getArticleList(Request $request, $source){
         $markdownFiles = [];
         $parsedData = [];
-        $directory = '/var/www/html/content/collections/articles/';
+        // $directory = '/var/www/html/content/collections/articles/';
         $sortBy = 'name';
         $page = 1;
         $perPage = 6;
 
         $page = $request->input('page', 1); // 獲取 page 參數，默認值為 1
+        $sourceTypeParam = $request->input('source-type', 1); // 獲取 page 參數，默認值為 1
         // $type = $request->type;
         $directory = '/var/www/html/content/collections/'. $source .'/';
         // 檢查目錄是否存在
         if (File::exists($directory)) {
             // 取得目錄內的所有檔案
             $files = File::files($directory);
+            $filteredFiles = $files;
+
+            if(isset($sourceTypeParam)){
+                // 假設 $files 是你原始的檔案陣列，每個元素是一個檔案物件
+                $filteredFiles = array_filter($files, function($file) use ($sourceTypeParam) {
+                    // 取得檔案的檔名（不包含副檔名）
+                    $fileName = pathinfo($file->getFilename(), PATHINFO_FILENAME);
+
+                    // 檢查檔名是否包含 sourceTypeParam
+                    return strpos($fileName, $sourceTypeParam) !== false;
+                });
+            }
+
 
             // 排序
-            $sortedFiles = $this->sortFiles($files, $sortBy);
+            $sortedFiles = $this->sortFiles($filteredFiles, $sortBy);
 
             // 分頁
             $pagedFiles = array_slice($sortedFiles, ($page - 1) * $perPage, $perPage);
@@ -207,6 +224,9 @@ class MarkdownController extends Controller
 
                 }
             }
+
+
+
         }
 
         return [
