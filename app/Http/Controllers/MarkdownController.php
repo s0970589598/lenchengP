@@ -12,7 +12,7 @@ class MarkdownController extends Controller
 {
     public function convert($source,$file)
     {
-        $mdFilePath = '/var/www/html/content/collections/' . $source . '/' . $file;
+        $mdFilePath = '/var/www/lenchengP/content/collections/' . $source . '/' . $file;
 
         if (!file_exists($mdFilePath)) {
             abort(404);
@@ -93,7 +93,7 @@ class MarkdownController extends Controller
     public function getMarkdownFilesInDirectory($file)
     {
         $markdownFiles = [];
-        $directory = '/var/www/html/content/collections/' . $file . '/';
+        $directory = '/var/www/lenchengP/content/collections/' . $file . '/';
         $sortBy = 'name';
         $page = 1;
         $perPage = 10;
@@ -163,7 +163,7 @@ class MarkdownController extends Controller
     public function getArticleList(Request $request, $source){
         $markdownFiles = [];
         $parsedData = [];
-        // $directory = '/var/www/html/content/collections/articles/';
+        // $directory = '/var/www/lenchengP/content/collections/articles/';
         $sortBy = 'name';
         $page = 1;
         $perPage = 6;
@@ -171,7 +171,7 @@ class MarkdownController extends Controller
         $page = $request->input('page', 1); // 獲取 page 參數，默認值為 1
         $sourceTypeParam = $request->input('source-type', 1); // 獲取 page 參數，默認值為 1
         // $type = $request->type;
-        $directory = '/var/www/html/content/collections/'. $source .'/';
+        $directory = '/var/www/lenchengP/content/collections/'. $source .'/';
         // 檢查目錄是否存在
         if (File::exists($directory)) {
             // 取得目錄內的所有檔案
@@ -216,7 +216,7 @@ class MarkdownController extends Controller
                     // 取得檔案的檔名
                     $fileName = $file->getFilenameWithoutExtension();
                     $markdownFiles[] = $fileName;
-                    $mdFilePath = '/var/www/html/content/collections/'. $source .'/' . $fileName . '.md';
+                    $mdFilePath = '/var/www/lenchengP/content/collections/'. $source .'/' . $fileName . '.md';
                     if (!file_exists($mdFilePath)) {
                         abort(404);
                     }
