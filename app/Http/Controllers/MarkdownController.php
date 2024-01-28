@@ -199,8 +199,13 @@ class MarkdownController extends Controller
             // 總檔案數
             $totalFiles = count($sortedFiles);
 
-            // 計算總頁數
-            $totalPages = ceil($totalFiles / $perPage);
+            if ($totalFiles == 0){
+                $totalPages = 0;
+            } else {
+                // 計算總頁數
+                $totalPages = ceil($totalFiles / $perPage);
+            }
+
 
             // 分頁
             $pagedFiles = array_slice($sortedFiles, ($page - 1) * $perPage, $perPage);
