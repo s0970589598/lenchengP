@@ -21,10 +21,14 @@ class ContactController extends Controller
 
         try {
             Mail::to('recipient@example.com')->send(new ContactFormMail($data));
-            return redirect()->route('success'); // 導向到成功頁面
+            // return redirect()->route('success'); // 導向到成功頁面
+            return response()->json(['message' => 'success']);
+
         } catch (\Exception $e) {
             // 處理發送郵件失敗的情況
-            return back()->withErrors(['error' => '郵件發送失敗']);
+            // return back()->withErrors(['error' => '郵件發送失敗']);
+            return response()->json(['message' => 'failed']);
+
         }
     }
 }
