@@ -27,8 +27,10 @@ class ContactController extends Controller
 
         } catch (\Exception $e) {
             // 處理發送郵件失敗的情況
+            Log::error($e->getMessage);
+
             // return back()->withErrors(['error' => '郵件發送失敗']);
-            return response()->json(['message' => $e]);
+            return response()->json(['message' => $e->getMessage]);
 
         }
     }
