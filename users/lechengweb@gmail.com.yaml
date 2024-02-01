@@ -19,3 +19,8 @@ preferences:
         - title
         - essay
         - source_type
+    articles:
+      columns:
+        - date
+        - status
+        - title
