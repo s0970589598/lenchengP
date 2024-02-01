@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Http\Request;
+
 use App\Mail\ContactFormMail; // 假設你有一個Mail類別在App\Mail命名空間下
 
 class ContactController extends Controller
