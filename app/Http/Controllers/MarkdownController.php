@@ -34,7 +34,7 @@ class MarkdownController extends Controller
             // 分離 YAML 和 Markdown 部分
 
         list($yamlData, $markdownText) = explode('---', $markdownContent, 3);
-        Log::info($markdownText);
+        // Log::info($markdownText);
         $markdownArray = Yaml::parse($markdownText);
         if ($type != "list") {
             return $markdownArray;
