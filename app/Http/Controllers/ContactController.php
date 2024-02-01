@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 
 use App\Mail\ContactFormMail; // 假設你有一個Mail類別在App\Mail命名空間下
@@ -18,9 +19,9 @@ class ContactController extends Controller
             'phone_number' => $request->input('phone_number'),
             'message' => $request->input('message'),
         ];
-
+        Log::info($data);
         try {
-            Mail::to('recipient@example.com')->send(new ContactFormMail($data));
+            Mail::to('lechengweb@gmail.com')->send(new ContactFormMail($data));
             // return redirect()->route('success'); // 導向到成功頁面
             return response()->json(['message' => 'success']);
 
