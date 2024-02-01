@@ -20,7 +20,7 @@ class ContactController extends Controller
         ];
         Log::info($data);
         try {
-            Mail::to('lechengweb@gmail.com')->send(new ContactFormMail($data));
+            Mail::to('st92308@gmail.com')->send(new ContactFormMail($data));
             // return redirect()->route('success'); // 導向到成功頁面
             return response()->json(['message' => 'success']);
 
