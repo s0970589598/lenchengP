@@ -13,8 +13,7 @@ class ContactController extends Controller
     public function sendEmail(Request $request)
     {
         $data = [
-            'first_name' => $request->input('first_name'),
-            'last_name' => $request->input('last_name'),
+            'name' => $request->input('name'),
             'email' => $request->input('email'),
             'phone_number' => $request->input('phone_number'),
             'message' => $request->input('message'),

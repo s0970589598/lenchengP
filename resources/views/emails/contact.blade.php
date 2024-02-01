@@ -6,8 +6,7 @@
     <title>Contact Form Submission</title>
 </head>
 <body>
-    <p>First Name: {{ $data['first_name'] }}</p>
-    <p>Last Name: {{ $data['last_name'] }}</p>
+    <p>Name: {{ $data['name'] }}</p>
     <p>Email: {{ $data['email'] }}</p>
     <p>Phone Number: {{ $data['phone_number'] }}</p>
     <p>Message: {{ $data['message'] }}</p>

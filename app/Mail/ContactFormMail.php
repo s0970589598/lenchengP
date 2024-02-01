@@ -32,6 +32,6 @@ class ContactFormMail extends Mailable
     public function build()
     {
         return $this->view('emails.contact') // 使用 'emails.contact' 視圖來設定郵件內容
-                    ->subject('New Contact Form Submission'); // 設定主題
+                    ->subject('樂橙適能場 連絡我們'); // 設定主題
     }
 }
