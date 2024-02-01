@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\GooglemapController;
+use App\Http\Controllers\ContactController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MarkdownController;
@@ -29,3 +30,4 @@ Route::get('/{type}/detail/{file}', [MarkdownController::class, 'convert']);
 Route::get('/{type}/all', [MarkdownController::class, 'getMarkdownFilesInDirectory']);
 Route::get('/{type}/list', [MarkdownController::class, 'getArticleList']);
 Route::get('/googlemap/detail', [GooglemapController::class, 'getMapDetail']);
+Route::post('/mail/send', [ContactController::class, 'sendEmail']);
