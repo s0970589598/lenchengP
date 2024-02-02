@@ -24,3 +24,6 @@ preferences:
         - date
         - status
         - title
+  assets:
+    assets:
+      per_page: 100
