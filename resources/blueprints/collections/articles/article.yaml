@@ -188,6 +188,14 @@ tabs:
       -
         fields:
           -
+            handle: date
+            field:
+              type: date
+              required: true
+              default: now
+              validate:
+                - required
+          -
             handle: slug
             field:
               type: slug
@@ -203,11 +211,3 @@ tabs:
               show_regenerate: false
               hide_display: true
               instructions: '檔案名(日期-第幾篇-分類(redline, strength, massage, reconstructio, correction, lecture )-其他)'
-          -
-            handle: date
-            field:
-              type: date
-              required: true
-              default: now
-              validate:
-                - required

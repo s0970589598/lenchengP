@@ -24,6 +24,7 @@ preferences:
         - date
         - status
         - title
+        - slug
   assets:
     assets:
       per_page: 100
