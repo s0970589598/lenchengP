@@ -193,7 +193,7 @@ tabs:
               type: slug
               localizable: true
               validate: 'max:200'
-              display: 'redline、strength、strength , reconstructio, correction, lecture )'
+              display: 'redline, strength, massage, reconstructio, correction, lecture )'
               instructions_position: above
               listable: hidden
               visibility: visible
@@ -202,7 +202,7 @@ tabs:
               generate: true
               show_regenerate: false
               hide_display: true
-              instructions: '檔案名(日期-第幾篇-分類(redline、strength、strength , reconstructio, correction, lecture )-其他)'
+              instructions: '檔案名(日期-第幾篇-分類(redline, strength, massage, reconstructio, correction, lecture )-其他)'
           -
             handle: date
             field:
