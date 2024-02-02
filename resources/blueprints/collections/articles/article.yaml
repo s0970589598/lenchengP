@@ -210,4 +210,4 @@ tabs:
               generate: true
               show_regenerate: false
               hide_display: true
-              instructions: '檔案名(日期-第幾篇-分類(redline, strength, massage, reconstructio, correction, lecture )-其他)'
+              instructions: '檔案名:2023010101-article-redline(日期第幾篇-article-分類) [redline, strength, massage, reconstructio, correction, lecture, other]'

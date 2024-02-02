@@ -225,5 +225,5 @@ tabs:
               generate: true
               show_regenerate: false
               hide_display: false
-              display: 檔案名(日期-第幾篇-分類(group、onebyone、lecture)-其他)
+              display: 檔案名:2023010101-group-redline(日期第幾篇-(group、onebyone、lecture)-分類)[redline, strength, massage, reconstructio, correction, lecture, other]
 title: Service

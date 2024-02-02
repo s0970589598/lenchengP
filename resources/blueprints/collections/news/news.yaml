@@ -192,7 +192,7 @@ tabs:
               type: slug
               localizable: true
               validate: 'max:200'
-              display: 檔案名(日期-第幾篇-分類(activity、news、lecture)-其他)
+              display: 檔案名:2023010101-lecture-massage (日期第幾篇-(activity、news、lecture)-分類)[redline, strength, massage, reconstructio, correction, lecture, other]
               instructions_position: above
               listable: hidden
               visibility: visible
