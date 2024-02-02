@@ -6,7 +6,6 @@ preferences:
   collections:
     service:
       columns:
-        - slug
         - status
         - title
         - taggable_field
