@@ -178,7 +178,7 @@ class MarkdownController extends Controller
             $files = File::files($directory);
             $filteredFiles = $files;
 
-            if(isset($sourceTypeParam)){
+            if(isset($sourceTypeParam) && $sourceTypeParam !=1){
                 // 假設 $files 是你原始的檔案陣列，每個元素是一個檔案物件
                 $filteredFiles = array_filter($files, function($file) use ($sourceTypeParam) {
                     // 取得檔案的檔名（不包含副檔名）
