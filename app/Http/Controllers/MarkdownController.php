@@ -94,7 +94,7 @@ class MarkdownController extends Controller
     {
         $markdownFiles = [];
         $directory = '/var/www/lenchengP/content/collections/' . $file . '/';
-        $sortBy = 'name';
+        $sortBy = 'date';
         $page = 1;
         $perPage = 10;
         $sourceTypeParam = 'groupclass';
