@@ -164,7 +164,7 @@ class MarkdownController extends Controller
         $markdownFiles = [];
         $parsedData = [];
         // $directory = '/var/www/lenchengP/content/collections/articles/';
-        $sortBy = 'name';
+        $sortBy = 'date';
         $page = 1;
         $perPage = 6;
 
@@ -189,11 +189,11 @@ class MarkdownController extends Controller
                 });
             }
             // array_multisort($filesize,SORT_DESC,SORT_NUMERIC, $filteredFiles);//按大小排序          
-            $sortedFiles = array_multisort($filename,SORT_DESC,SORT_STRING, $files);//按名字排序          
+            //$sortedFiles = array_multisort($filename,SORT_DESC,SORT_STRING, $files);//按名字排序          
             //array_multisort($filetime,SORT_DESC,SORT_STRING, $files);//按時間排序
 
             // 排序
-            // $sortedFiles = $this->sortFiles($filteredFiles, $sortBy);
+            $sortedFiles = $this->sortFiles($filteredFiles, $sortBy);
 
             // 分頁
             $pagedFiles = array_slice($sortedFiles, ($page - 1) * $perPage, $perPage);
