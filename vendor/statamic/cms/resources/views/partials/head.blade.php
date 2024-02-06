@@ -10,7 +10,7 @@
 @else
     <link rel="icon" type="image/png" href="{{ Statamic::cpViteAsset('img/favicon-32x32.png') }}" sizes="32x32" />
     <link rel="icon" type="image/png" href="{{ Statamic::cpViteAsset('img/favicon-16x16.png') }}" sizes="16x16" />
-    <link rel="shortcut icon" type="image/x-icon" href="{{ Statamic::cpViteAsset('img/favicon.ico') }}" sizes="16x16 32x32"/>
+    <!-- <link rel="shortcut icon" type="image/x-icon" href="{{ Statamic::cpViteAsset('img/favicon.ico') }}" sizes="16x16 32x32"/> -->
 @endif
 
 {{ Statamic::cpViteScripts() }}
