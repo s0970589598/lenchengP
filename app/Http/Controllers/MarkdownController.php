@@ -183,8 +183,14 @@ class MarkdownController extends Controller
                 $filteredFiles = array_filter($files, function($file) use ($sourceTypeParam) {
                     // 取得檔案的檔名（不包含副檔名）
                     $fileName = pathinfo($file->getFilename(), PATHINFO_FILENAME);
-                    return strpos($fileName, $sourceTypeParam) !== false;
 
+                    if ($sourceTypeParam != 'partner'){
+                        return strpos($fileName, $sourceTypeParam) !== false;
+
+                    } else {
+                        return (strpos($fileName, $sourceTypeParam) !== false && ! strpos($fileName, 'partner'));
+
+                    }
                 });
             }
             // array_multisort($filesize,SORT_DESC,SORT_NUMERIC, $filteredFiles);//按大小排序          
