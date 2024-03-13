@@ -185,7 +185,7 @@ class MarkdownController extends Controller
                     $fileName = pathinfo($file->getFilename(), PATHINFO_FILENAME);
                     
                     if ($sourceTypeParam != 'partner'){
-                        return ! strpos($fileName, 'partner') ;
+                        return strpos($fileName, 'partner') == false;
                     }
 
                     return strpos($fileName, $sourceTypeParam) !== false;
