@@ -25,6 +25,11 @@ preferences:
         - title
         - slug
       per_page: 500
+    employee:
+      columns:
+        - slug
+        - status
+        - title
   assets:
     assets:
       per_page: 100

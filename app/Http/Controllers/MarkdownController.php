@@ -8,7 +8,9 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Symfony\Component\Yaml\Yaml;
 use Illuminate\Support\Facades\Log;
+use Exception;
 class MarkdownController extends Controller
+
 {
     public function convert($source,$file)
     {
@@ -83,6 +85,15 @@ class MarkdownController extends Controller
                     'teacher' => isset($markdownArray['teacher']) ? [$markdownArray['teacher']] : [],
                 ];
                 break;
+            case 'employee':
+                $selectedData = [
+                    'id' => $markdownArray['id'] ?? null,
+                    'title' => $markdownArray['title'] ?? null,
+                    'feature_pic' => $markdownArray['feature_pic'] ?? null,
+                    'taggable_field1' => isset($markdownArray['taggable_field1']) ? [$markdownArray['taggable_field1']] : [],
+                    'taggable_field2' => isset($markdownArray['taggable_field2']) ? [$markdownArray['taggable_field2']] : [],
+                ];
+                break;
             default:
                 return [];
 
@@ -100,43 +111,57 @@ class MarkdownController extends Controller
         $sourceTypeParam = 'groupclass';
         // 檢查目錄是否存在
         if (File::exists($directory)) {
-            // 取得目錄內的所有檔案
-            $files = File::files($directory);
 
+            try {
+                // 取得目錄內的所有檔案
+                $files = File::files($directory);
 
+            
 
-            // 排序
-            $sortedFiles = $this->sortFiles($files, $sortBy);
+                // 排序
+                $sortedFiles = $this->sortFiles($files, $sortBy);
 
-            // 分頁
-            $pagedFiles = array_slice($sortedFiles, ($page - 1) * $perPage, $perPage);
+                // 分頁
+                $pagedFiles = array_slice($sortedFiles, ($page - 1) * $perPage, $perPage);
 
-            // 總檔案數
-            $totalFiles = count($sortedFiles);
+                // 總檔案數
+                $totalFiles = count($sortedFiles);
 
-            // 計算總頁數
-            $totalPages = ceil($totalFiles / $perPage);
+                // 計算總頁數
+                $totalPages = ceil($totalFiles / $perPage);
 
-            // 分頁
-            $pagedFiles = array_slice($sortedFiles, ($page - 1) * $perPage, $perPage);
+                // 分頁
+                $pagedFiles = array_slice($sortedFiles, ($page - 1) * $perPage, $perPage);
 
-            foreach ($pagedFiles as $file) {
-                // 檢查檔案是否是 .md 檔
-                if ($file->getExtension() === 'md') {
-                    // 取得檔案的檔名
-                    $fileName = $file->getFilenameWithoutExtension();
-                    $markdownFiles[] = $fileName;
+                foreach ($pagedFiles as $file) {
+                    // 檢查檔案是否是 .md 檔
+                    if ($file->getExtension() === 'md') {
+                        // 取得檔案的檔名
+                        $fileName = $file->getFilenameWithoutExtension();
+                        $markdownFiles[] = $fileName;
+                    }
                 }
+                return [
+                'data' => $markdownFiles,
+                'pagination' => [
+                        'total_pages' => $totalPages,
+                        'current_page' => $page,
+                    ],
+                ];
+            } catch (Exception $e) {
+                Log::error('Error getting markdown files in directory: ' . $e->getMessage());
+                return [];
             }
         }
 
         return [
-            'data' => $markdownFiles,
+            'data' => [],
             'pagination' => [
-                'total_pages' => $totalPages,
+                'total_pages' => 0,
                 'current_page' => $page,
             ],
         ];
+   
     }
 
     private function sortFiles($files, $sortBy)
@@ -173,93 +198,107 @@ class MarkdownController extends Controller
         // $type = $request->type;
         $directory = '/var/www/lenchengP/content/collections/'. $source .'/';
         // 檢查目錄是否存在
-        if (File::exists($directory)) {
-            // 取得目錄內的所有檔案
-            $files = File::files($directory);
-            $filteredFiles = $files;
-
-            if(isset($sourceTypeParam) && $sourceTypeParam !=1){
-                // 假設 $files 是你原始的檔案陣列，每個元素是一個檔案物件
-                $filteredFiles = array_filter($files, function($file) use ($sourceTypeParam) {
-                    // 取得檔案的檔名（不包含副檔名）
-                    $fileName = pathinfo($file->getFilename(), PATHINFO_FILENAME);
-                    
-                    if ($sourceTypeParam != 'partner'){
-                        return strpos($fileName, 'partner') == false;
-                    }
-
-                    return strpos($fileName, $sourceTypeParam) !== false;
-
-                });
-            } else {
-                $filteredFiles = array_filter($files, function($file) use ($sourceTypeParam) {
-                    // 取得檔案的檔名（不包含副檔名）
-                    $fileName = pathinfo($file->getFilename(), PATHINFO_FILENAME);
-                    
-                    if ($sourceTypeParam != 'partner'){
-                        return strpos($fileName, 'partner') == false;
-                    }
-
-                    return strpos($fileName, $sourceTypeParam) !== false;
-
-                });
-            }
-            // array_multisort($filesize,SORT_DESC,SORT_NUMERIC, $filteredFiles);//按大小排序          
-            //$sortedFiles = array_multisort($filename,SORT_DESC,SORT_STRING, $files);//按名字排序          
-            //array_multisort($filetime,SORT_DESC,SORT_STRING, $files);//按時間排序
-
-            // 排序
-            $sortedFiles = $this->sortFiles($filteredFiles, $sortBy);
-
-            // 分頁
-            $pagedFiles = array_slice($sortedFiles, ($page - 1) * $perPage, $perPage);
-
-            // 總檔案數
-            $totalFiles = count($sortedFiles);
-
-            if ($totalFiles == 0){
-                $totalPages = 0;
-            } else {
-                // 計算總頁數
-                $totalPages = ceil($totalFiles / $perPage);
-            }
-
-
-            // 分頁
-            $pagedFiles = array_slice($sortedFiles, ($page - 1) * $perPage, $perPage);
-
-            foreach ($pagedFiles as $file) {
-                // 檢查檔案是否是 .md 檔
-                if ($file->getExtension() === 'md') {
-                    // 取得檔案的檔名
-                    $fileName = $file->getFilenameWithoutExtension();
-                    $markdownFiles[] = $fileName;
-                    $mdFilePath = '/var/www/lenchengP/content/collections/'. $source .'/' . $fileName . '.md';
-                    if (!file_exists($mdFilePath)) {
-                        abort(404);
-                    }
-
-                    $mdContent = File::get($mdFilePath);
-
-                    // 解析 Markdown 資料
-                    $parsedData[] = $this->parseMarkdown($mdContent,'list', $source);
-
-
+        
+        try {
+            if (File::exists($directory)) {
+                // 取得目錄內的所有檔案
+                $files = File::files($directory);
+                $filteredFiles = $files;
+    
+                if(isset($sourceTypeParam) && $sourceTypeParam !=1){
+                    // 假設 $files 是你原始的檔案陣列，每個元素是一個檔案物件
+                    $filteredFiles = array_filter($files, function($file) use ($sourceTypeParam) {
+                        // 取得檔案的檔名（不包含副檔名）
+                        $fileName = pathinfo($file->getFilename(), PATHINFO_FILENAME);
+                        
+                        if ($sourceTypeParam != 'partner'){
+                            return strpos($fileName, 'partner') == false;
+                        }
+    
+                        return strpos($fileName, $sourceTypeParam) !== false;
+    
+                    });
+                } else {
+                    $filteredFiles = array_filter($files, function($file) use ($sourceTypeParam) {
+                        // 取得檔案的檔名（不包含副檔名）
+                        $fileName = pathinfo($file->getFilename(), PATHINFO_FILENAME);
+                        
+                        if ($sourceTypeParam != 'partner'){
+                            return strpos($fileName, 'partner') == false;
+                        }
+    
+                        return strpos($fileName, $sourceTypeParam) !== false;
+    
+                    });
                 }
+                // array_multisort($filesize,SORT_DESC,SORT_NUMERIC, $filteredFiles);//按大小排序          
+                //$sortedFiles = array_multisort($filename,SORT_DESC,SORT_STRING, $files);//按名字排序          
+                //array_multisort($filetime,SORT_DESC,SORT_STRING, $files);//按時間排序
+    
+                // 排序
+                $sortedFiles = $this->sortFiles($filteredFiles, $sortBy);
+    
+                // 分頁
+                $pagedFiles = array_slice($sortedFiles, ($page - 1) * $perPage, $perPage);
+    
+                // 總檔案數
+                $totalFiles = count($sortedFiles);
+    
+                if ($totalFiles == 0){
+                    $totalPages = 0;
+                } else {
+                    // 計算總頁數
+                    $totalPages = ceil($totalFiles / $perPage);
+                }
+    
+    
+                // 分頁
+                $pagedFiles = array_slice($sortedFiles, ($page - 1) * $perPage, $perPage);
+    
+                foreach ($pagedFiles as $file) {
+                    // 檢查檔案是否是 .md 檔
+                    if ($file->getExtension() === 'md') {
+                        // 取得檔案的檔名
+                        $fileName = $file->getFilenameWithoutExtension();
+                        $markdownFiles[] = $fileName;
+                        $mdFilePath = '/var/www/lenchengP/content/collections/'. $source .'/' . $fileName . '.md';
+                        if (!file_exists($mdFilePath)) {
+                            abort(404);
+                        }
+    
+                        $mdContent = File::get($mdFilePath);
+    
+                        // 解析 Markdown 資料
+                        $parsedData[] = $this->parseMarkdown($mdContent,'list', $source);
+    
+    
+                    }
+                }
+    
+                return [
+                    'data' => $markdownFiles,
+                    'article' => $parsedData,
+                    'pagination' => [
+                        'total_pages' => $totalPages,
+                        'current_page' => (int) $page,
+                    ],
+                ];
+    
             }
 
-
-
+        } catch (Exception $e) {
+            Log::error('Error getting markdown files in directory: ' . $e->getMessage());
+            return [];
         }
-
         return [
-            'data' => $markdownFiles,
-            'article' => $parsedData,
+            'data' => [],
             'pagination' => [
-                'total_pages' => $totalPages,
-                'current_page' => (int) $page,
+                'total_pages' => 0,
+                'current_page' => $page,
             ],
         ];
+
+        
     }
 
 }
